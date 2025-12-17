@@ -57,6 +57,7 @@ This project uses the Coupon dataset (from a survey via Amazon Mechanical Turk, 
 - Filtered subsets for targeted analysis (e.g., bar coupons).  
     ```
     bar_data = data[data['coupon']=='Bar'].copy()
+    carry_data = data[data['coupon'] == 'Carry out & Take away'].copy()
     ```
 
 ## Exploratory Data Analysis(EDA) & Key Findings
@@ -101,7 +102,10 @@ The purpose of EDA is to **understand the data, discover patterns, and identify 
 **Summary**
 The correlation analysis confirms that coupon acceptance is driven more by behavioral patterns than by demographic attributes. While individual feature correlations with acceptance are modest, strong relationships among venue-visiting behaviors highlight the importance of segment-based analysis.
 
-## Sample Investigation to Find Correlations Between Features for Coupon Type 'Bar'
+## Illustrative Investigations
+
+### Coupon Type - *Bar*
+This investigation focuses on driver behavior in response to **Bar coupons**. Using exploratory data analysis and visualizations, we aim to identify the key factors that influence coupon acceptance and generate actionable insights for predictive modeling and marketing strategies.
 
 Below graph depicts the acceptance rate between those who went to a bar 3 or fewer times a month to those who went more and they are less likely to accept bar coupons
 ![Acceptance Rate by Bar Visit Frequency](images/acceptance_by_bar_freq.png)
@@ -119,11 +123,9 @@ Furthermore, this graph depict comparison of the acceptance rates between those 
 ![Acceptance Rate by Key Driver Segments](images/acceptance_rate_segments.png)
 The data shows there is similarity in the bar coupon acceptance behavior between these categories.
 
-**Conclusion**: Drivers who frequently visit bars, are not accompanied by children, and are not widowed have the highest likelihood of accepting bar coupons (~77%). Younger drivers (under 30) who frequently go to bars also show a high acceptance rate (~73%). Drivers who are occasional bar-goers, accompanied by children, or widowed are less likely to accept bar coupons (~35-37%).
+**Summary**: Drivers who frequently visit bars, are not accompanied by children, and are not widowed have the highest likelihood of accepting bar coupons (~77%). Younger drivers (under 30) who frequently go to bars also show a high acceptance rate (~73%). Drivers who are occasional bar-goers, accompanied by children, or widowed are less likely to accept bar coupons (~35-37%).
 
-> **Note:** For a similar analysis on another coupon type, please refer to the last section of [this Jupyter notebook](https://github.com/swarnima-shrivastava/coupon-acceptance-analytics/blob/main/prompt.ipynb).
-
-## Predictive Insights / Hypotheses
+**Predictive Insights / Hypotheses**
 The insights above help **identify patterns and trends** in coupon acceptance and form the basis for **hypotheses** about why some drivers accept coupons while others do not. These hypotheses set the stage for further **predictive analysis**.  
 
 1. **Behavior-driven acceptance:** Drivers whose **habits align with the coupon type** (e.g., frequent bar-goers for bar coupons or regular visitors to budget restaurants) are more likely to accept relevant coupons.  
@@ -131,7 +133,34 @@ The insights above help **identify patterns and trends** in coupon acceptance an
 3. **Income-specific patterns:** Low-income drivers who frequently visit cheap restaurants show higher acceptance rates for restaurant coupons but are less likely to accept bar coupons.
 4. **Combined predictive signals:** **Behavioral patterns coupled with demographic characteristics** including visit frequency, age, income, passenger type and marital status provide strong predictive indicators for coupon acceptance.  
 
-**Marketing implications:** These insights enable **targeted marketing strategies**, allowing businesses to focus promotions on segments most likely to respond positively, thereby maximizing the efficiency of coupon campaigns.
+### Coupon Type - *Carry out & Take away*
+This investigation focuses on driver behavior in response to **Carry out & Take away coupons**. Using exploratory data analysis and visualizations, we aim to identify the key factors that influence coupon acceptance and generate actionable insights for predictive modeling and marketing strategies.
+
+We analyzed the following segments based on driver behavior, age, income, and passenger presence:
+
+| Segment | Definition | Acceptance Rate |
+|---------|------------|----------------|
+| FrequentCarry_NoKids | Frequent visitors (Carry_numFreq > 3) traveling without children | 75.3% |
+| FrequentCarry_Under30 | Younger drivers (<30) who visit frequently (Carry_numFreq > 1) | 73.8% |
+| FrequentCarry_LowIncome | Low-income drivers (<$50k) who visit frequently (Carry_numFreq > 4) | 73.7% |
+| Carry_NoKids_Under30 | Drivers under 30 traveling without children | 73.8% |
+
+**Observations:**  As seen in below graph, 
+- The **highest acceptance** is seen among **frequent visitors without children**, suggesting convenience and habitual behavior drive coupon redemption.  
+- **Younger drivers** and **low-income frequent visitors** also show slightly higher acceptance than the overall population.  
+- Differences between segments and “Others” are **modest**, but they still indicate meaningful trends for targeting.
+![Acceptance Rate by Key Driver Segments Carryout](images/carryout_analysis_combined.png)
+
+
+**Summary**: Preliminary analysis indicates that **habitual restaurant visits, passenger composition, age, and income** are strong predictors of Carry Out & Take Away coupon acceptance. Drivers who frequently order takeout, travel with children, or are younger show higher acceptance rates. These patterns align with behavioral and situational expectations for takeout services. Insights from this investigation provide a foundation for **predictive modeling** and enable **targeted marketing strategies**, such as offering promotions during peak meal times or to driver segments likely to value convenience.
+
+**Predictive Insights / Hypotheses**
+1. **Behavior-driven acceptance:** Frequent carry-out visitors are more likely to redeem coupons, especially when traveling without children.  
+2. **Demographic influence:** Younger drivers and low-income drivers are slightly more responsive to Carry Out & Take Away coupons.  
+3. **Combined predictive signals:** **Behavior + demographics** provide the best predictive power for targeted marketing.  
+
+### **Marketing implications:** 
+These insights enable **targeted marketing strategies**, allowing businesses to focus promotions on segments most likely to respond positively, thereby maximizing the efficiency of coupon campaigns.Promotions can be **timed around peak takeout hours** and targeted to **frequent visitors under 30 or without children** for maximum impact.
 
 ## Conclusion
 This project examined driver behavior in response to various coupon types using exploratory data analysis and visualizations. Key factors influencing coupon acceptance included **habitual behavior, passenger presence, age, income, and marital status**. Drivers who frequently visit bars, travel without children, and are younger were most likely to accept coupons, whereas occasional bar-goers or those traveling with children exhibited lower acceptance rates.  
